@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:upcomming_movies_flutter/src/model/movie_images.dart';
@@ -21,10 +23,24 @@ class MovieImagesListState extends State<MovieImagesList> {
 
   MovieImagesListState(this._movieId);
 
+  StreamSubscription<MovieImages> dataSub;
+
+
   @override
   void initState() {
     super.initState();
     _getMovieImages();
+    dataSub = getMovieImages(_movieId).asStream().listen((value) {
+      setState(() {
+        this._posters.addAll(value.posters);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    dataSub.cancel();
   }
 
   @override
@@ -33,9 +49,7 @@ class MovieImagesListState extends State<MovieImagesList> {
       padding: const EdgeInsets.all(16.0),
       child: Container(
         height: 150,
-        child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: <Widget>[
+        child: Stack(alignment: AlignmentDirectional.center, children: <Widget>[
           ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: _posters.length,
@@ -51,12 +65,5 @@ class MovieImagesListState extends State<MovieImagesList> {
     );
   }
 
-  _getMovieImages() {
-    getMovieImages(_movieId).then((value) {
-      print(value);
-      setState(() {
-        this._posters.addAll(value.posters);
-      });
-    });
-  }
+  _getMovieImages() {}
 }
