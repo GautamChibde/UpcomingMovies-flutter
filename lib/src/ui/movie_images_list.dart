@@ -40,7 +40,7 @@ class MovieImagesListState extends State<MovieImagesList> {
               scrollDirection: Axis.horizontal,
               itemCount: _posters.length,
               itemBuilder: (BuildContext context, int index) {
-                return MovieImageListItem(_posters[index]);
+                return MovieImageListItem(_posters[index], index);
               }),
           Opacity(
             child: CircularProgressIndicator(),

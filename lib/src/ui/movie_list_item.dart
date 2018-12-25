@@ -29,7 +29,7 @@ class MovieListItem extends StatelessWidget {
             Row(
               children: <Widget>[
                 Hero(
-                  tag: movie.title,
+                  tag: movie.posterPath + "poster_detail",
                   child: Container(
                       height: 180,
                       width: 111,
