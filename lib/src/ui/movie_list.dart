@@ -58,8 +58,7 @@ class MovieListState extends State<MovieList> {
   }
 
   void _getMovies(int page) {
-    Future<MoviesWrapper> future = getUpcomingMovies(page);
-    future.then((value) {
+    getUpcomingMovies(page).then((value) {
       setState(() {
         this._loading = false;
         this._movies.addAll(value.movies);

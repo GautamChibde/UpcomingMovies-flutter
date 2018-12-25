@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:upcomming_movies_flutter/src/ui/home_page.dart';
+import 'package:upcomming_movies_flutter/src/ui/detail_page.dart';
 
 void main() => runApp(MyApp());
 
