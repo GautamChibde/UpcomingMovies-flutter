@@ -37,7 +37,7 @@ class MovieListState extends State<MovieList> {
             controller: _controller,
             itemCount: _movies.length,
             itemBuilder: (BuildContext context, int index) {
-              return MovieListItem(_movies[index]);
+              return MovieListItem(_movies[index], index);
             }),
         Opacity(
           child: CircularProgressIndicator(),

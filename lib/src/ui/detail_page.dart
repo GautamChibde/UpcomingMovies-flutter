@@ -7,8 +7,9 @@ import 'package:upcomming_movies_flutter/src/ui/movie_images_list.dart';
 
 class DetailPage extends StatelessWidget {
   final Movie _movie;
+  final int _index;
 
-  DetailPage(this._movie);
+  DetailPage(this._movie, this._index);
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +121,7 @@ class DetailPage extends StatelessWidget {
                   left: 16,
                   top: 70,
                   child: Hero(
-                    tag: _movie.posterPath + "poster_detail",
+                    tag: _movie.posterPath ?? _index.toString() + "poster_detail",
                     child: Container(
                       height: 180,
                       child: FadeInImage.assetNetwork(

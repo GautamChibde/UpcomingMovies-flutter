@@ -6,8 +6,9 @@ import 'package:upcomming_movies_flutter/src/utils.dart';
 
 class MovieListItem extends StatelessWidget {
   final Movie movie;
+  final int _index;
 
-  MovieListItem(this.movie);
+  MovieListItem(this.movie, this._index);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class MovieListItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailPage(movie),
+            builder: (context) => DetailPage(movie, _index),
           ),
         );
       },
@@ -29,7 +30,7 @@ class MovieListItem extends StatelessWidget {
             Row(
               children: <Widget>[
                 Hero(
-                  tag: movie.posterPath + "poster_detail",
+                  tag: movie.posterPath ?? _index.toString() + "poster_detail",
                   child: Container(
                       height: 180,
                       width: 111,
