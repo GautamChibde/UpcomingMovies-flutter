@@ -33,6 +33,11 @@ class Utils {
     return ENDPOINT_IMAGE + (original ? "original" : "w500") + posterUrl;
   }
 
-  static String getGeners(List<int> genreIds) =>
-      genreIds.map((i) => geners[i]).toList().join(", ");
+  static String getGeners(List<int> genreIds) {
+    if (genreIds.length > 3) {
+      return genreIds.sublist(0, 3).map((i) => geners[i]).toList().join(", ");
+    } else {
+      return genreIds.map((i) => geners[i]).toList().join(", ");
+    }
+  }
 }

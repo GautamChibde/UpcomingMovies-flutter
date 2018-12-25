@@ -13,8 +13,8 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-          child: Stack(
-      children: <Widget>[
+      child: Stack(
+        children: <Widget>[
           Column(
             textDirection: TextDirection.ltr,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -32,14 +32,20 @@ class DetailPage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                 child: Text(
                   _movie.title,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Lato'),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                 child: Text(
                   Utils.getGeners(_movie.genreIds),
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Lato'),
                 ),
               ),
               Padding(
@@ -58,13 +64,18 @@ class DetailPage extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
-                            color: Colors.orangeAccent),
+                            color: Colors.orangeAccent,
+                            fontFamily: 'Lato'),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 4),
                       child: Text(
                         "/10",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Lato'),
                       ),
                     )
                   ],
@@ -75,7 +86,8 @@ class DetailPage extends StatelessWidget {
                 child: Text(
                   _movie.overview,
                   textAlign: TextAlign.start,
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(
+                      color: Colors.grey, fontSize: 14, fontFamily: 'Lato'),
                 ),
               ),
             ],
@@ -95,9 +107,9 @@ class DetailPage extends StatelessWidget {
               ),
             ),
           )
-      ],
-    ),
-        ));
+        ],
+      ),
+    ));
   }
 }
 

@@ -36,6 +36,14 @@ flutter:
   assets:
     - assets/loading_placeholder.gif
 
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato-Regular.ttf
+        - asset: fonts/Lato-Italic.ttf
+        - asset: fonts/Lato-Bold.ttf
+
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
