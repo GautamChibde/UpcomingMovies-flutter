@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:upcomming_movies_flutter/src/model/movie.dart';
+import 'package:upcomming_movies_flutter/src/model/movie_images.dart';
 
 const String API_URL = "https://api.themoviedb.org/3/";
 
@@ -14,4 +15,13 @@ Future<MoviesWrapper> getUpcomingMovies(int page) async {
   MoviesWrapper moviesWrapper = parseUpcomingMovies(data.body);
 
   return moviesWrapper;
+}
+
+Future<MovieImages> getMovieImages(int id) async {
+  final String url = API_URL + "movie/" + id.toString() + "/images" + "?api_key=" + API_KEY;
+  var data = await http.get(url);
+
+  MovieImages movieImages = parseMovieImages(data.body);
+
+  return movieImages;
 }

@@ -48,28 +48,46 @@ class MovieListItem extends StatelessWidget {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Text(
-                            movie.title ?? "N/A",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Lato'),
+                          child: Hero(
+                            tag: movie.id.toString() + "title",
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Text(
+                                movie.title ?? "N/A",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Lato'),
+                              ),
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            Utils.getGeners(movie.genreIds),
-                            style: TextStyle(fontSize: 14, fontFamily: 'Lato'),
+                          child: Hero(
+                            tag: movie.id.toString() + "genre",
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Text(
+                                Utils.getGeners(movie.genreIds),
+                                style: TextStyle(fontSize: 14, fontFamily: 'Lato'),
+                              ),
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Text(
-                            movie.overview ?? "N/A",
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 14, fontFamily: 'Lato'),
+                          child: Hero(
+                            tag: movie.id.toString() + "overview",
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Text(
+                                movie.overview ?? "N/A",
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 14, fontFamily: 'Lato'),
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -89,7 +107,7 @@ class MovieListItem extends StatelessWidget {
                     elevation: 8,
                     shape: CircleBorder(),
                     child: Text(
-                      "8.6",
+                      "${movie.voteAverage ?? ""}",
                       style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
