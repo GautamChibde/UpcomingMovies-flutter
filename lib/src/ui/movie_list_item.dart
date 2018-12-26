@@ -29,68 +29,19 @@ class MovieListItem extends StatelessWidget {
           child: Stack(children: <Widget>[
             Row(
               children: <Widget>[
-                Hero(
-                  tag: movie.posterPath ?? _index.toString() + "poster_detail",
-                  child: Container(
-                      height: 180,
-                      width: 111,
-                      child: FadeInImage.assetNetwork(
-                        placeholder: "assets/loading_placeholder.gif",
-                        image: Utils.getPosterImage(false, movie.posterPath),
-                        fit: BoxFit.fitHeight,
-                      )),
-                ),
+                _moviePoster(),
                 new Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Hero(
-                            tag: movie.id.toString() + "title",
-                            child: Material(
-                              color: Colors.transparent,
-                              child: Text(
-                                movie.title ?? "N/A",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Lato'),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Hero(
-                            tag: movie.id.toString() + "genre",
-                            child: Material(
-                              color: Colors.transparent,
-                              child: Text(
-                                Utils.getGeners(movie.genreIds),
-                                style: TextStyle(fontSize: 14, fontFamily: 'Lato'),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Hero(
-                            tag: movie.id.toString() + "overview",
-                            child: Material(
-                              color: Colors.transparent,
-                              child: Text(
-                                movie.overview ?? "N/A",
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 14, fontFamily: 'Lato'),
-                              ),
-                            ),
-                          ),
-                        ),
+                        _movieTitle(),
+                        SizedBox(height: 8),
+                        _movieGenre(),
+                        SizedBox(height: 8),
+                        _movieOverview(),
                       ],
                     ),
                   ),
@@ -100,27 +51,78 @@ class MovieListItem extends StatelessWidget {
             Positioned(
               top: 130,
               left: 90,
-              child: Container(
-                  height: 42,
-                  width: 42,
-                  child: RawMaterialButton(
-                    fillColor: Colors.orangeAccent,
-                    elevation: 8,
-                    shape: CircleBorder(),
-                    child: Text(
-                      "${movie.voteAverage ?? ""}",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Lato'),
-                    ),
-                    onPressed: () {},
-                  )),
+              child:
+                  Container(height: 42, width: 42, child: _movieAverageVote()),
             )
           ]),
         ),
       ),
     );
   }
+
+  _moviePoster() => Hero(
+        tag: movie.posterPath ?? _index.toString() + "poster_detail",
+        child: Container(
+            height: 180,
+            width: 111,
+            child: FadeInImage.assetNetwork(
+              placeholder: "assets/loading_placeholder.gif",
+              image: Utils.getPosterImage(false, movie.posterPath),
+              fit: BoxFit.fitHeight,
+            )),
+      );
+
+  _movieTitle() => Hero(
+        tag: movie.id.toString() + "title",
+        child: Material(
+          color: Colors.transparent,
+          child: Text(
+            movie.title ?? "N/A",
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Lato'),
+          ),
+        ),
+      );
+
+  _movieGenre() => Hero(
+        tag: movie.id.toString() + "genre",
+        child: Material(
+          color: Colors.transparent,
+          child: Text(
+            Utils.getGeners(movie.genreIds),
+            style: TextStyle(fontSize: 14, fontFamily: 'Lato'),
+          ),
+        ),
+      );
+
+  _movieOverview() => Hero(
+        tag: movie.id.toString() + "overview",
+        child: Material(
+          color: Colors.transparent,
+          child: Text(
+            movie.overview ?? "N/A",
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontSize: 14, fontFamily: 'Lato'),
+          ),
+        ),
+      );
+
+  _movieAverageVote() => Container(
+      height: 42,
+      width: 42,
+      child: RawMaterialButton(
+        fillColor: Colors.orangeAccent,
+        elevation: 8,
+        shape: CircleBorder(),
+        child: Text(
+          "${movie.voteAverage ?? ""}",
+          style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Lato'),
+        ),
+        onPressed: () {},
+      ));
 }

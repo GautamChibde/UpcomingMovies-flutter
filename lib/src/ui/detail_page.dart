@@ -24,112 +24,30 @@ class DetailPage extends StatelessWidget {
                   textDirection: TextDirection.ltr,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    ClipPath(
-                      child: FadeInImage.assetNetwork(
-                        height: 260,
-                        placeholder: "assets/loading_placeholder.gif",
-                        image: Utils.getPosterImage(true, _movie.backdropPath),
-                        fit: BoxFit.fill,
-                      ),
-                      clipper: new BottomImageClipper(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                      child: Hero(
-                        tag: _movie.id.toString() + "title",
-                        child: Material(
-                          color: Colors.transparent,
-                          child: Text(
-                            _movie.title,
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Lato'),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                      child: Hero(
-                        tag: _movie.id.toString() + "genre",
-                        child: Material(
-                          color: Colors.transparent,
-                          child: Text(
-                            Utils.getGeners(_movie.genreIds),
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Lato'),
-                          ),
-                        ),
-                      ),
-                    ),
+                    _movieBackdrop(),
+                    _movieTitle(),
+                    _movieGenre(),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
-                          RatingBar(
-                              numStars: 5,
-                              rating: _movie.voteAverage / 2,
-                              onChanged: null),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                            child: Text(
-                              "${_movie.voteAverage.toString()}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24,
-                                  color: Colors.orangeAccent,
-                                  fontFamily: 'Lato'),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 4),
-                            child: Text(
-                              "/10",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Lato'),
-                            ),
-                          )
+                          _ratingBar(),
+                          _movieAverageVote(),
+                          _labelMaxRating()
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Hero(
-                        tag: _movie.id.toString() + "overview",
-                        child: Material(
-                          color: Colors.transparent,
-                          child: Text(
-                            _movie.overview,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 14,
-                                fontFamily: 'Lato'),
-                          ),
-                        ),
-                      ),
-                    ),
+                    _movieOverview(),
                   ],
                 ),
                 Positioned(
                   left: 16,
                   top: 70,
                   child: Hero(
-                    tag: _movie.posterPath ?? _index.toString() + "poster_detail",
-                    child: Container(
-                      height: 180,
-                      child: FadeInImage.assetNetwork(
-                        placeholder: "assets/loading_placeholder.gif",
-                        image: Utils.getPosterImage(false, _movie.posterPath),
-//                  fit: BoxFit.fitHeight,
-                      ),
-                    ),
+                    tag: _movie.posterPath ??
+                        _index.toString() + "poster_detail",
+                    child: _moviePoster(),
                   ),
                 )
               ],
@@ -142,21 +60,114 @@ class DetailPage extends StatelessWidget {
         top: 16,
         left: 8,
         child: Row(
-          children: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
+          children: <Widget>[_backButton(context)],
         ),
       )
     ]));
   }
+
+  _backButton(BuildContext context) => IconButton(
+        icon: Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      );
+
+  _moviePoster() => Container(
+        height: 180,
+        child: FadeInImage.assetNetwork(
+          placeholder: "assets/loading_placeholder.gif",
+          image: Utils.getPosterImage(false, _movie.posterPath),
+//                  fit: BoxFit.fitHeight,
+        ),
+      );
+
+  _movieOverview() => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Hero(
+          tag: _movie.id.toString() + "overview",
+          child: Material(
+            color: Colors.transparent,
+            child: Text(
+              _movie.overview,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  color: Colors.grey, fontSize: 14, fontFamily: 'Lato'),
+            ),
+          ),
+        ),
+      );
+
+  _labelMaxRating() => Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 4),
+        child: Text(
+          "/10",
+          style: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Lato'),
+        ),
+      );
+
+  _movieAverageVote() => Padding(
+        padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+        child: Text(
+          "${_movie.voteAverage.toString()}",
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              color: Colors.orangeAccent,
+              fontFamily: 'Lato'),
+        ),
+      );
+
+  _ratingBar() =>
+      RatingBar(numStars: 5, rating: _movie.voteAverage / 2, onChanged: null);
+
+  _movieGenre() => Padding(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+        child: Hero(
+          tag: _movie.id.toString() + "genre",
+          child: Material(
+            color: Colors.transparent,
+            child: Text(
+              Utils.getGeners(_movie.genreIds),
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Lato'),
+            ),
+          ),
+        ),
+      );
+
+  _movieTitle() => Padding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        child: Hero(
+          tag: _movie.id.toString() + "title",
+          child: Material(
+            color: Colors.transparent,
+            child: Text(
+              _movie.title,
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Lato'),
+            ),
+          ),
+        ),
+      );
+
+  _movieBackdrop() => ClipPath(
+        child: FadeInImage.assetNetwork(
+          height: 260,
+          placeholder: "assets/loading_placeholder.gif",
+          image: Utils.getPosterImage(true, _movie.backdropPath),
+          fit: BoxFit.fill,
+        ),
+        clipper: new BottomImageClipper(),
+      );
 }
 
 class BottomImageClipper extends CustomClipper<Path> {
