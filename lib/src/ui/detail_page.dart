@@ -78,10 +78,8 @@ class DetailPage extends StatelessWidget {
 
   _moviePoster() => Container(
         height: 180,
-        child: FadeInImage.assetNetwork(
-          placeholder: "assets/loading_placeholder.gif",
-          image: Utils.getPosterImage(false, _movie.posterPath),
-//                  fit: BoxFit.fitHeight,
+        child: Image.network(
+          Utils.getPosterImage(false, _movie.posterPath),
         ),
       );
 
@@ -160,11 +158,10 @@ class DetailPage extends StatelessWidget {
       );
 
   _movieBackdrop() => ClipPath(
-        child: FadeInImage.assetNetwork(
-          height: 260,
-          placeholder: "assets/loading_placeholder.gif",
-          image: Utils.getPosterImage(true, _movie.backdropPath),
+        child: Image.network(
+          Utils.getPosterImage(true, _movie.backdropPath),
           fit: BoxFit.fill,
+          height: 260,
         ),
         clipper: new BottomImageClipper(),
       );

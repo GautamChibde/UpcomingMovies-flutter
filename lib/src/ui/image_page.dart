@@ -17,11 +17,13 @@ class ImagePage extends StatelessWidget {
             alignment: AlignmentDirectional.center,
             child: Hero(
               tag: _index.toString() + "poster",
-              child: FadeInImage.assetNetwork(
-                placeholder: "assets/loading_placeholder.gif",
-                image: Utils.getPosterImage(true, _imageUrl),
-                fit: BoxFit.fill,
-              ),
+              child: Stack(fit: StackFit.expand, children: <Widget>[
+                Center(child: CircularProgressIndicator()),
+                Image.network(
+                  Utils.getPosterImage(true, _imageUrl),
+                  fit: BoxFit.fitWidth,
+                )
+              ]),
             ),
           ),
           Positioned(

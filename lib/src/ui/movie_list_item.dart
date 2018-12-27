@@ -60,16 +60,22 @@ class MovieListItem extends StatelessWidget {
     );
   }
 
-  _moviePoster() => Hero(
-        tag: movie.posterPath ?? _index.toString() + "poster_detail",
-        child: Container(
-            height: 180,
-            width: 111,
-            child: FadeInImage.assetNetwork(
-              placeholder: "assets/loading_placeholder.gif",
-              image: Utils.getPosterImage(false, movie.posterPath),
-              fit: BoxFit.fitHeight,
-            )),
+  _moviePoster() =>
+      Container(
+        height: 180,
+        width: 111,
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            Center(child: CircularProgressIndicator()),
+            Hero(
+                tag: movie.posterPath ?? _index.toString() + "poster_detail",
+                child: Image.network(
+                  Utils.getPosterImage(false, movie.posterPath),
+                  fit: BoxFit.fitHeight,
+                ))
+          ],
+        ),
       );
 
   _movieTitle() => Hero(

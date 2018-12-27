@@ -34,6 +34,7 @@ class MovieListState extends State<MovieList> {
           : AlignmentDirectional.bottomCenter,
       children: <Widget>[
         ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
             controller: _controller,
             itemCount: _movies.length,
             itemBuilder: (BuildContext context, int index) {

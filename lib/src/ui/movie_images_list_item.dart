@@ -26,14 +26,16 @@ class MovieImageListItem extends StatelessWidget {
         child: Container(
           height: 180,
           width: 111,
-          child: Hero(
-            tag: _index.toString() + "poster",
-            child: FadeInImage.assetNetwork(
-              placeholder: "assets/loading_placeholder.gif",
-              image: Utils.getPosterImage(false, _poster.filePath),
-              fit: BoxFit.fitHeight,
-            ),
-          ),
+          child: Stack(fit: StackFit.expand, children: <Widget>[
+            Center(child: CircularProgressIndicator()),
+            Hero(
+              tag: _index.toString() + "poster",
+              child: Image.network(
+                Utils.getPosterImage(false, _poster.filePath),
+                fit: BoxFit.fitHeight,
+              ),
+            )
+          ]),
         ));
   }
 }

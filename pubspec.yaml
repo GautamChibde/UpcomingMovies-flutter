@@ -33,9 +33,6 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
-  assets:
-    - assets/loading_placeholder.gif
-
   fonts:
     - family: Lato
       fonts:
