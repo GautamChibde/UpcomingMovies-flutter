@@ -10,6 +10,7 @@ const String UPCOMING_MOVIES = "movie/upcoming";
 
 Future<MoviesWrapper> getUpcomingMovies(int page) async {
   final String url = API_URL + UPCOMING_MOVIES + "?api_key=" + API_KEY + "&page=" + page.toString();
+  print(url);
   var data = await http.get(url);
 
   MoviesWrapper moviesWrapper = parseUpcomingMovies(data.body);
